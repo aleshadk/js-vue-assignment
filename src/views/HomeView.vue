@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PagePreviewComponent from '@/components/PagePreviewComponent.vue';
+
+</script>
 
 <template>
   <main>
-    <h1>Home</h1>
+    <PagePreviewComponent />
   </main>
 </template>
