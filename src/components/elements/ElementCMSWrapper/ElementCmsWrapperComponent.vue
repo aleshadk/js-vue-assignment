@@ -1,17 +1,21 @@
 <template>
   <div
     class="wrapper"
-    :class="{ shadowed: isActive }"
+    :class="{ shadowed: props.showControlPanel }"
     @mouseover="handleElementMouseOver"
     @mouseout="handleElementMouseOut"
   >
     <!-- TODO: how can I avoid direct props drilling? May be I can use smth like v-bind here-->
-    <TextElementComponent v-if="type === 'text'" :value="props.value" />
-    <ImageElementComponent v-if="type === 'img'" :src="props.src" :size="props.size" />
+    <TextElementComponent v-if="props.type === 'text'" :value="(props as TextBlockItem).value" />
+    <ImageElementComponent
+      v-if="props.type === 'img'"
+      :src="(props as ImageBlockItem).src"
+      :size="(props as ImageBlockItem).size"
+    />
 
     <div
       class="control-panel"
-      v-if="isActive"
+      v-if="props.showControlPanel"
       @mouseover="handleControlPanelMouseOver"
       @mouseout="handleControlPanelMouseOut"
     >
@@ -26,6 +30,10 @@ import ImageElementComponent from './../image-element/ImageElementComponent.vue'
 import type { BlockItem } from '@/components/PagePreviewModel'
 import CmsNewItemControl from '../../cms-controls/CmsControlPanel.vue'
 import { useControlPanelHoverLogic } from './hooks/useControlPanelHoverLogic'
+import { watch } from 'vue'
+const props = defineProps<BlockItem & { showControlPanel: boolean }>()
+
+const emit = defineEmits<{ (e: 'focusChanged', id: string, isFocused: boolean): void }>()
 
 const {
   isActive,
@@ -33,8 +41,20 @@ const {
   handleElementMouseOut,
   handleControlPanelMouseOver,
   handleControlPanelMouseOut,
-} = useControlPanelHoverLogic()
-const props = defineProps<BlockItem>()
+  reset
+} = useControlPanelHoverLogic(props.id)
+
+// TODO: I don't like it, but I don't know how to fix it in a better way
+
+watch(() => props.showControlPanel, (value) => {
+  if (!value) {
+    reset();
+  }
+})
+
+watch(isActive, (value) => emit('focusChanged', props.id, value))
+
+// TODO: fix warnings in console
 </script>
 <style scoped>
 .wrapper {
@@ -53,5 +73,6 @@ const props = defineProps<BlockItem>()
   left: 50%;
   bottom: 0;
   transform: translate(-50%, 50%);
+  z-index: 1;
 }
 </style>

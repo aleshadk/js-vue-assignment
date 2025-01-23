@@ -1,6 +1,8 @@
 import { ref, computed } from 'vue'
 
-export function useControlPanelHoverLogic() {
+export function useControlPanelHoverLogic(id: string) {
+  console.log('USE FOR ID', id)
+
   const elHovered = ref(false);
   const controlPanelHovered = ref(false);
 
@@ -11,7 +13,9 @@ export function useControlPanelHoverLogic() {
   }
 
   function handleElementMouseOut(event: MouseEvent) {
-    if (!event.relatedTarget || !(event.relatedTarget as Element).closest('.wrapper')) {
+    const target = event.relatedTarget as Element;
+
+    if (!target || !target.closest('.wrapper')) {
       elHovered.value = false;
     }
   }
@@ -24,11 +28,17 @@ export function useControlPanelHoverLogic() {
     controlPanelHovered.value = false;
   }
 
+  function reset() {
+    elHovered.value = false;
+    controlPanelHovered.value = false;
+  }
+
   return {
     isActive,
     handleElementMouseOver,
     handleElementMouseOut,
     handleControlPanelMouseOver,
-    handleControlPanelMouseOut
+    handleControlPanelMouseOut,
+    reset
   }
 }
