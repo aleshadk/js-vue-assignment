@@ -1,5 +1,5 @@
 <template>
-  <p>{{ props.value }}</p>
+  <p class="my-4">{{ props.value }}</p>
 </template>
 
 <script setup lang="ts">
