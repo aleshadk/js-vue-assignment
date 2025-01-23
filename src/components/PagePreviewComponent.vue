@@ -12,8 +12,8 @@
       v-for="item in cmsBlocksStore.blocks"
       :key="item.id"
       v-bind="item"
-      :showControlPanel="focusedElementId === item.id"
-      @focusChanged="handleItemFocusChanged"
+      :showControlPanel="focusedBlockId === item.id"
+      @focusChanged="handleBlockFocusChanged"
       @addNewItemClicked="() => addNewBlockModalOpened = { insertAfterBlockId: item.id }"
     />
   </div>
@@ -25,23 +25,12 @@ import AddNewBlockModalComponent from './AddNewBlockModalComponent.vue'
 import ElementCMSWrapperComponent from './elements/ElementCMSWrapper/ElementCmsWrapperComponent.vue'
 import type { BlockType } from './PagePreviewModel'
 import { ref } from 'vue';
+import { useCmsBlockFocusChange } from './useCmsBlockFocusChange';
 
 const cmsBlocksStore = useCmsBlocksStore();
+const {focusedBlockId, handleBlockFocusChanged} = useCmsBlockFocusChange();
 
 const addNewBlockModalOpened = ref<{insertAfterBlockId: string} | null>(false)
-
-const focusedElementId = ref<string | null>(null)
-
-function handleItemFocusChanged(id: string, isFocused: boolean) {
-  if (isFocused) {
-    focusedElementId.value = id
-    return
-  }
-
-  if (focusedElementId.value === id) {
-    focusedElementId.value = null
-  }
-}
 
 function handleAddNewBlock(type: BlockType) {
   cmsBlocksStore.addNewBlock(type, addNewBlockModalOpened.value?.insertAfterBlockId);

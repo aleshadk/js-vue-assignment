@@ -1,8 +1,6 @@
 import { ref, computed } from 'vue'
 
 export function useControlPanelHoverLogic(id: string) {
-  console.log('USE FOR ID', id)
-
   const elHovered = ref(false);
   const controlPanelHovered = ref(false);
 
