@@ -9,8 +9,8 @@
     </a-modal>
     <!-- <AddNewBlockModalComponent :open="addNewBlockModalOpened" /> -->
     <ElementCMSWrapperComponent
-      v-for="(item, index) in blocks"
-      :key="index"
+      v-for="item in cmsBlocksStore.blocks"
+      :key="item.id"
       v-bind="item"
       :showControlPanel="focusedElementId === item.id"
       @focusChanged="handleItemFocusChanged"
@@ -20,10 +20,13 @@
 </template>
 
 <script setup lang="ts">
+import { useCmsBlocksStore } from '@/stores/cmsBlocksStore';
 import AddNewBlockModalComponent from './AddNewBlockModalComponent.vue'
 import ElementCMSWrapperComponent from './elements/ElementCMSWrapper/ElementCmsWrapperComponent.vue'
-import type { BlockItem, BlockType } from './PagePreviewModel'
-import { ref } from 'vue'
+import type { BlockType } from './PagePreviewModel'
+import { ref } from 'vue';
+
+const cmsBlocksStore = useCmsBlocksStore();
 
 const addNewBlockModalOpened = ref<{insertAfterBlockId: string} | null>(false)
 
@@ -41,20 +44,7 @@ function handleItemFocusChanged(id: string, isFocused: boolean) {
 }
 
 function handleAddNewBlock(type: BlockType) {
-  console.log(type, addNewBlockModalOpened.value?.insertAfterBlockId);
+  cmsBlocksStore.addNewBlock(type, addNewBlockModalOpened.value?.insertAfterBlockId);
+  addNewBlockModalOpened.value = null;
 }
-
-const blocks = ref<BlockItem[]>([
-  {
-    id: 'first',
-    type: 'text',
-    value: 'Hello world',
-  },
-  {
-    id: 'second',
-    type: 'img',
-    src: 'this is src',
-    size: 'large',
-  },
-])
 </script>
