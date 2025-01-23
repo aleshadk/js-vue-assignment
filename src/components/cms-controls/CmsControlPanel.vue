@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <a-button @click="emit('add')" type="default">Insert new block above</a-button>
-    <a-button :icon="h(EditOutlined)" />
-    <a-button danger :icon="h(DeleteOutlined)" />
+    <a-button @click="emit('add')">Insert new block above</a-button>
+    <a-button @click="emit('edit')" :icon="h(EditOutlined)" />
+    <a-button @click="emit('delete')" danger :icon="h(DeleteOutlined)" />
   </div>
 </template>
 

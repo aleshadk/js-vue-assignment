@@ -20,7 +20,7 @@
       @mouseover="handleControlPanelMouseOver"
       @mouseout="handleControlPanelMouseOut"
     >
-      <CmsNewItemControl @add="() => emit('addNewItemClicked')" />
+      <CmsNewItemControl @add="() => emit('add')" @edit="() => emit('edit')"  />
     </div>
   </div>
 </template>
@@ -36,7 +36,8 @@ const props = defineProps<BlockItem & { showControlPanel: boolean }>()
 
 const emit = defineEmits<{
   (e: 'focusChanged', id: string, isFocused: boolean): void // TODO: renove id? 
-  (e: 'addNewItemClicked'): void
+  (e: 'add'): void
+  (e: 'edit'): void
 }>()
 
 const {
