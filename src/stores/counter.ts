@@ -1,11 +1,23 @@
+import type { BlockItem } from '@/components/PagePreviewModel'
 import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-export const useMainStore = defineStore('main', () => {
-  // state
+export const useCMSBlocksStore = defineStore('cms-blocks', () => {
+  const blocks = ref<BlockItem[]>([{
+    id: 'first',
+    type: 'text',
+    value: 'Hello world',
+  },
+  {
+    id: 'second',
+    type: 'img',
+    src: 'this is src',
+    size: 'large',
+  }])
 
-  // getters
+  function add()
 
-  // actions
+  return { blocks, increment }
 
-  return {}
 })
+

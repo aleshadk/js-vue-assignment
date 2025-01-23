@@ -2,6 +2,8 @@ interface BaseItem {
   id: string;
 }
 
+export type BlockType = 'text' | 'img'; 
+
 export interface TextBlockItem extends BaseItem{
   type: 'text';
   value: string;

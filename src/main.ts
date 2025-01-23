@@ -4,14 +4,13 @@ import TextElementComponent from './components/elements/text-element/TextElement
 import './main.css'
 import App from './App.vue'
 import router from './router'
-import { Button } from 'ant-design-vue'
+import { Button, Card, Modal } from 'ant-design-vue'
 
-
-
-
+// TODO: should I optimize use of antd?
 const app = createApp(App)
   .use(createPinia())
   .use(router)
-  .component('TextElementComponent', TextElementComponent)
   .use(Button)
+  .use(Modal)
+  .use(Card)
   .mount('#app')

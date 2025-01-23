@@ -6,6 +6,7 @@
     @mouseout="handleElementMouseOut"
   >
     <!-- TODO: how can I avoid direct props drilling? May be I can use smth like v-bind here-->
+    <!-- TODO: use kind of resolver here-->
     <TextElementComponent v-if="props.type === 'text'" :value="(props as TextBlockItem).value" />
     <ImageElementComponent
       v-if="props.type === 'img'"
@@ -19,7 +20,7 @@
       @mouseover="handleControlPanelMouseOver"
       @mouseout="handleControlPanelMouseOut"
     >
-      <CmsNewItemControl />
+      <CmsNewItemControl @add="() => emit('addNewItemClicked')" />
     </div>
   </div>
 </template>
@@ -33,7 +34,10 @@ import { useControlPanelHoverLogic } from './hooks/useControlPanelHoverLogic'
 import { watch } from 'vue'
 const props = defineProps<BlockItem & { showControlPanel: boolean }>()
 
-const emit = defineEmits<{ (e: 'focusChanged', id: string, isFocused: boolean): void }>()
+const emit = defineEmits<{
+  (e: 'focusChanged', id: string, isFocused: boolean): void // TODO: renove id? 
+  (e: 'addNewItemClicked'): void
+}>()
 
 const {
   isActive,
@@ -41,16 +45,19 @@ const {
   handleElementMouseOut,
   handleControlPanelMouseOver,
   handleControlPanelMouseOut,
-  reset
+  reset,
 } = useControlPanelHoverLogic(props.id)
 
 // TODO: I don't like it, but I don't know how to fix it in a better way
 
-watch(() => props.showControlPanel, (value) => {
-  if (!value) {
-    reset();
-  }
-})
+watch(
+  () => props.showControlPanel,
+  (value) => {
+    if (!value) {
+      reset()
+    }
+  },
+)
 
 watch(isActive, (value) => emit('focusChanged', props.id, value))
 
