@@ -1,5 +1,5 @@
 <template>
-  <p class="my-4 w-full" :class="aligmentCssClass">{{ props.value }}</p>
+  <p class="my-4 w-full" :class="aligmentCssClass">{{ props.model.value }}</p>
 </template>
 
 <script setup lang="ts">
@@ -11,17 +11,13 @@ const alligmentToCssClassMapping: Record<TextBlockAligment, string> = {
   right: 'text-right',
 }
 
-const props = defineProps<Omit<TextBlockItem, 'type'>>()
+const props = defineProps<{model: TextBlockItem}>()
 const aligmentCssClass = ref('')
 
-console.log(props.aligment);
-
 watch(
-  () => props.aligment,
-  aligment => {
-    debugger;
-    aligmentCssClass.value = alligmentToCssClassMapping[aligment]
-  },
+  () => props.model.aligment,
+  aligment => aligmentCssClass.value = alligmentToCssClassMapping[aligment],
+  { immediate: true }
 )
 </script>
 

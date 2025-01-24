@@ -7,12 +7,8 @@
   >
     <!-- TODO: how can I avoid direct props drilling? May be I can use smth like v-bind here-->
     <!-- TODO: use kind of resolver here-->
-    <TextElementComponent v-if="props.type === 'text'" :value="props.value" :aligment="props.aligment" />
-    <ImageElementComponent
-      v-if="props.type === 'img'"
-      :src="(props as ImageBlockItem).src"
-      :size="(props as ImageBlockItem).size"
-    />
+    <TextElementComponent v-if="props.blockModel.type === 'text'" :model="props.blockModel" />
+    <ImageElementComponent v-if="props.blockModel.type === 'img'" :model="props.blockModel" />
 
     <div
       class="control-panel"
@@ -20,7 +16,7 @@
       @mouseover="handleControlPanelMouseOver"
       @mouseout="handleControlPanelMouseOut"
     >
-      <CmsNewItemControl @add="() => emit('add')" @edit="() => emit('edit')"  />
+      <CmsNewItemControl @add="() => emit('add')" @edit="() => emit('edit')" />
     </div>
   </div>
 </template>
@@ -32,10 +28,10 @@ import type { BlockItem } from '@/components/PagePreviewModel'
 import CmsNewItemControl from '../../cms-controls/CmsControlPanel.vue'
 import { useControlPanelHoverLogic } from './hooks/useControlPanelHoverLogic'
 import { watch } from 'vue'
-const props = defineProps<BlockItem & { showControlPanel: boolean }>()
+const props = defineProps<{ blockModel: BlockItem; showControlPanel: boolean }>()
 
 const emit = defineEmits<{
-  (e: 'focusChanged', id: string, isFocused: boolean): void // TODO: renove id? 
+  (e: 'focusChanged', id: string, isFocused: boolean): void // TODO: renove id?
   (e: 'add'): void
   (e: 'edit'): void
 }>()
@@ -47,7 +43,7 @@ const {
   handleControlPanelMouseOver,
   handleControlPanelMouseOut,
   reset,
-} = useControlPanelHoverLogic(props.id)
+} = useControlPanelHoverLogic(props.blockModel.id)
 
 // TODO: I don't like it, but I don't know how to fix it in a better way
 
@@ -60,9 +56,8 @@ watch(
   },
 )
 
-watch(isActive, (value) => emit('focusChanged', props.id, value))
+watch(isActive, (value) => emit('focusChanged', props.blockModel.id, value))
 
-// TODO: fix warnings in console
 </script>
 <style scoped>
 .wrapper {

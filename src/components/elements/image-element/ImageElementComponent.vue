@@ -1,11 +1,11 @@
 <template>
 
-  <p>This is image element: {{ props.src }} with size {{ props.size }}</p>
+  <p>This is image element: {{ props.model.src }} with alt {{ props.model.alt }}</p>
 </template>
 
 <script setup lang="ts">
   import type { ImageBlockItem } from '@/components/PagePreviewModel';
-  const props = defineProps<ImageBlockItem>()
+  const props = defineProps<{model: ImageBlockItem}>()
 </script>
 
 <style scoped></style>

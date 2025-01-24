@@ -30,7 +30,7 @@ const mapping: BlockMapping = {
       return {
         type: 'img',
         src: 'this is src',
-        size: 'large',
+        alt: 'this is alt',
         id: generateId()
       }
     },

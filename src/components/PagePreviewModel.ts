@@ -14,7 +14,7 @@ export interface TextBlockItem extends BaseItem{
 export interface ImageBlockItem extends BaseItem {
   type: 'img';
   src: string;
-  size: 'small' | 'medium' | 'large';
+  alt: string;
 }
 
 export type BlockItem = TextBlockItem | ImageBlockItem;

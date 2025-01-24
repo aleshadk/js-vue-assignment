@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 <template>
   <div class="flex flex-col gap-4">
     <FormControlWrapper label="Paragraph content">
@@ -15,10 +24,23 @@
 <script lang="ts" setup>
 import FormControlWrapper from '@/components/cms/cms-forms/FormControlWrapper.vue';
 import type { TextBlockAligment, TextBlockItem } from '@/components/PagePreviewModel';
+import { useCmsFormStore } from '@/stores/cmsBlocksStore';
 import { ref } from 'vue';
 
 const props = defineProps<TextBlockItem>();
 const aligmentOptions: TextBlockAligment[] = ['left', 'center', 'right'];
 const textValue = ref<string>(props.value);
 const textAligment = ref(props.aligment);
+
+const cmsFormStore = useCmsFormStore();
+
+cmsFormStore.updateSubmitActiveForm(() => {
+  return {
+    id: props.id,
+    type: 'text',
+    value: textValue.value,
+    aligment: textAligment.value
+  } as TextBlockItem
+});
+
 </script>

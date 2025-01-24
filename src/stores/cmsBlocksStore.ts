@@ -12,12 +12,12 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
     type: 'text',
     value: 'Hello world',
     aligment: 'center'
-  },
+},
   {
     id: 'second',
     type: 'img',
     src: 'this is src',
-    size: 'large',
+    alt: 'alt',
   }])
 
   function addNewBlock(type: BlockType, insertAfterBlockId?: string) {
@@ -25,6 +25,21 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
     blocks.value = result;
   }
 
-  return { blocks, addNewBlock }
+// TODO: write tests for cases when there is no block with relevant id
+  function updateBlock(data: BlockItem) {
+    blocks.value = blocks.value.map(item => item.id === data.id ? data : item);
+  }
+
+  return { blocks, addNewBlock, updateBlock }
 })
 
+// TODO: I don't like "active" in var names
+export const useCmsFormStore = defineStore('cms-form', () => {
+  const submitActiveForm = ref<(() => BlockItem) | null>();
+
+  function updateSubmitActiveForm(fn: (() => BlockItem) | null) {
+    submitActiveForm.value = fn;
+  }
+
+  return { submitActiveForm, updateSubmitActiveForm }
+})
