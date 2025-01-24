@@ -30,7 +30,11 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
     blocks.value = blocks.value.map(item => item.id === data.id ? data : item);
   }
 
-  return { blocks, addNewBlock, updateBlock }
+  function deleteBlock(blockId: string) {
+    blocks.value = blocks.value.filter(x => x.id !== blockId);
+  }
+
+  return { blocks, addNewBlock, updateBlock, deleteBlock }
 })
 
 // TODO: I don't like "active" in var names

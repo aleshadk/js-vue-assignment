@@ -10,6 +10,7 @@
         @focusChanged="handleBlockFocusChanged"
         @add="() => (addNewBlockModalOpened = { insertAfterBlockId: item.id })"
         @edit="() => editCmsBlock(item.id)"
+        @delete="() => cmsBlocksStore.deleteBlock(item.id)"
       />
     </div>
   </div>
