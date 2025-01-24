@@ -1,34 +1,41 @@
 <template>
-  <div class="w-2xl box-border border-gray-100 border">
-    <h1>Page Preview Component</h1>
-    <a-modal
-      :open="addNewBlockModalOpened"
-      title="Basic Modal"
-      @cancel="addNewBlockModalOpened = null"
-    >
-      <template #footer>
-        <a-button key="cancel" @click="addNewBlockModalOpened = null">Cancel</a-button>
-      </template>
-      <AddNewBlockModalComponent @addNewBlockClicked="handleAddNewBlock" />
-    </a-modal>
-    <!-- <AddNewBlockModalComponent :open="addNewBlockModalOpened" /> -->
-    <ElementCMSWrapperComponent
-      v-for="item in cmsBlocksStore.blocks"
-      :key="item.id"
-      :blockModel="item"
-      :showControlPanel="focusedBlockId === item.id"
-      @focusChanged="handleBlockFocusChanged"
-      @add="() => (addNewBlockModalOpened = { insertAfterBlockId: item.id })"
-      @edit="() => editCmsBlock(item.id)"
-    />
-
-    <a-drawer :open="drawerInnerNode !== null" title="Edit block" placement="right" @close="closeSidePanel">
-      <component :is="drawerInnerNode" />
-      <template #extra>
-        <a-button type="primary" @click="submitForm">Save</a-button>
-      </template>
-    </a-drawer>
+  <h1 class="text-2xl m-4">Page Preview Component</h1>
+  <div class="flex justify-center">
+    <div class="w-2xl box-border bg-white border border-gray-200 rounded-lg shadow-lg p-8 mb-16">
+      <ElementCMSWrapperComponent
+        v-for="item in cmsBlocksStore.blocks"
+        :key="item.id"
+        :blockModel="item"
+        :showControlPanel="focusedBlockId === item.id"
+        @focusChanged="handleBlockFocusChanged"
+        @add="() => (addNewBlockModalOpened = { insertAfterBlockId: item.id })"
+        @edit="() => editCmsBlock(item.id)"
+      />
+    </div>
   </div>
+
+  <a-modal
+    :open="addNewBlockModalOpened"
+    title="Basic Modal"
+    @cancel="addNewBlockModalOpened = null"
+  >
+    <template #footer>
+      <a-button key="cancel" @click="addNewBlockModalOpened = null">Cancel</a-button>
+    </template>
+    <AddNewBlockModalComponent @addNewBlockClicked="handleAddNewBlock" />
+  </a-modal>
+
+  <a-drawer
+    :open="drawerInnerNode !== null"
+    title="Edit block"
+    placement="right"
+    @close="closeSidePanel"
+  >
+    <component :is="drawerInnerNode" />
+    <template #extra>
+      <a-button type="primary" @click="submitForm">Save</a-button>
+    </template>
+  </a-drawer>
 </template>
 
 <script setup lang="ts">
@@ -45,7 +52,7 @@ const cmsBlocksStore = useCmsBlocksStore()
 // TODO: rename
 const drawerInnerNode = ref<VNode | null>(null)
 
-const cmsFormStore = useCmsFormStore();
+const cmsFormStore = useCmsFormStore()
 
 function submitForm() {
   if (!cmsFormStore.submitActiveForm) {
@@ -53,14 +60,14 @@ function submitForm() {
     return
   }
 
-  const model = cmsFormStore.submitActiveForm();
-  cmsBlocksStore.updateBlock(model);
-  closeSidePanel();
+  const model = cmsFormStore.submitActiveForm()
+  cmsBlocksStore.updateBlock(model)
+  closeSidePanel()
 }
 
 function closeSidePanel() {
-  drawerInnerNode.value = null;
-  cmsFormStore.updateSubmitActiveForm(null);
+  drawerInnerNode.value = null
+  cmsFormStore.updateSubmitActiveForm(null)
 }
 
 const editCmsBlock = (id: string) => {
