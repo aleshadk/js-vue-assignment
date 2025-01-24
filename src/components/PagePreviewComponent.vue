@@ -22,12 +22,11 @@
       @edit="() => editCmsBlock(item.id)"
     />
 
-    <a-drawer
-      v-model:open="drawerInnerNode"
-      title="Edit block"
-      placement="right"
-    >
+    <a-drawer v-model:open="drawerInnerNode" title="Edit block" placement="right">
       <component :is="drawerInnerNode" />
+      <template #extra>
+        <a-button type="primary" @click="() => {}">Save</a-button>
+      </template>
     </a-drawer>
   </div>
 </template>
@@ -42,22 +41,22 @@ import { useCmsBlockFocusChange } from './useCmsBlockFocusChange'
 import { resolveFormComponent } from '@/cms/cmsBlockResolver'
 
 // TODO: rename
-const drawerInnerNode = ref<VNode | null>(null);
+const drawerInnerNode = ref<VNode | null>(null)
 
 const editCmsBlock = (id: string) => {
-  const block = cmsBlocksStore.blocks.find(item => item.id === id);
+  const block = cmsBlocksStore.blocks.find((item) => item.id === id)
   if (!block) {
-    return;
+    return
   }
 
-  const formComponent = resolveFormComponent(block);
-  drawerInnerNode.value = formComponent;
+  const formComponent = resolveFormComponent(block)
+  drawerInnerNode.value = formComponent
 }
 
 const cmsBlocksStore = useCmsBlocksStore()
 const { focusedBlockId, handleBlockFocusChanged } = useCmsBlockFocusChange()
 
-const addNewBlockModalOpened = ref<{ insertAfterBlockId: string } | null>(null);
+const addNewBlockModalOpened = ref<{ insertAfterBlockId: string } | null>(null)
 
 function handleAddNewBlock(type: BlockType) {
   cmsBlocksStore.addNewBlock(type, addNewBlockModalOpened.value?.insertAfterBlockId)
