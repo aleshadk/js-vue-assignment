@@ -2,16 +2,28 @@
   <h1 class="text-2xl m-4">Page Preview Component</h1>
   <div class="flex justify-center">
     <div class="w-2xl box-border bg-white border border-gray-200 rounded-lg shadow-lg p-8 mb-16">
-      <ElementCMSWrapperComponent
-        v-for="item in cmsBlocksStore.blocks"
-        :key="item.id"
-        :blockModel="item"
-        :showControlPanel="focusedBlockId === item.id"
-        @focusChanged="handleBlockFocusChanged"
-        @add="() => (addNewBlockModalOpened = { insertAfterBlockId: item.id })"
-        @edit="() => editCmsBlock(item.id)"
-        @delete="() => cmsBlocksStore.deleteBlock(item.id)"
-      />
+      <draggable
+        :list="cmsBlocksStore.blocks"
+        item-key="id"
+        ghost-class="bg-green-500"
+        chosen-class="bg-blue-300"
+        animation="300"
+        handle=".handle"
+        @start="() => (drag = true)"
+        @end="() => (drag = false)"
+      >
+        <template #item="{ element }">
+          <ElementCMSWrapperComponent
+            :key="element.id"
+            :blockModel="element"
+            :showControlPanel="!drag && focusedBlockId === element.id"
+            @focusChanged="handleBlockFocusChanged"
+            @add="() => (addNewBlockModalOpened = { insertAfterBlockId: element.id })"
+            @edit="() => editCmsBlock(element.id)"
+            @delete="() => cmsBlocksStore.deleteBlock(element.id)"
+          />
+        </template>
+      </draggable>
     </div>
   </div>
 
@@ -47,6 +59,10 @@ import type { BlockType } from './PagePreviewModel'
 import { ref, type VNode } from 'vue'
 import { useCmsBlockFocusChange } from './useCmsBlockFocusChange'
 import { resolveFormComponent } from '@/cms/cmsBlockResolver'
+import draggable from 'vuedraggable'
+
+// Определяем реактивное состояние
+const drag = ref(false)
 
 const cmsBlocksStore = useCmsBlocksStore()
 
@@ -81,7 +97,7 @@ const editCmsBlock = (id: string) => {
   drawerInnerNode.value = formComponent
 }
 
-const { focusedBlockId, handleBlockFocusChanged } = useCmsBlockFocusChange()
+const { focusedBlockId, handleBlockFocusChanged } = useCmsBlockFocusChange(drag)
 
 const addNewBlockModalOpened = ref<{ insertAfterBlockId: string } | null>(null)
 

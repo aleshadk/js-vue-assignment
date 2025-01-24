@@ -3,12 +3,13 @@
     <a-button @click="emit('add')">Insert new block above</a-button>
     <a-button @click="emit('edit')" :icon="h(EditOutlined)" />
     <a-button @click="emit('delete')" danger :icon="h(DeleteOutlined)" />
+    <a-button class="handle" type="text" :icon="h(MoreOutlined)" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { h } from 'vue';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons-vue';
 
 const emit = defineEmits(['add', 'edit', 'delete']);
 

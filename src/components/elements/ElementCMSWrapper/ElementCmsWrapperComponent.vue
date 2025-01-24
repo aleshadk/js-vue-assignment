@@ -5,7 +5,6 @@
     @mouseover="handleElementMouseOver"
     @mouseout="handleElementMouseOut"
   >
-    <!-- TODO: how can I avoid direct props drilling? May be I can use smth like v-bind here-->
     <!-- TODO: use kind of resolver here-->
     <TextElementComponent v-if="props.blockModel.type === 'text'" :model="props.blockModel" />
     <ImageElementComponent v-if="props.blockModel.type === 'img'" :model="props.blockModel" />
@@ -77,6 +76,6 @@ watch(isActive, (value) => emit('focusChanged', props.blockModel.id, value))
   left: 50%;
   bottom: 0;
   transform: translate(-50%, 50%);
-  z-index: 1;
+  z-index: 10;
 }
 </style>

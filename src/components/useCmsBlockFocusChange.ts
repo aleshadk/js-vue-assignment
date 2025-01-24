@@ -1,9 +1,13 @@
-import { ref, computed } from 'vue'
+import { ref, type Ref } from 'vue'
 
-export function useCmsBlockFocusChange() {
+export function useCmsBlockFocusChange(isDragging: Ref<boolean>) {
   const focusedBlockId = ref<string | null>(null)
 
   function handleBlockFocusChanged(id: string, isFocused: boolean) {
+    if (isDragging.value) {
+      return;
+    }
+
     if (isFocused) {
       focusedBlockId.value = id
       return
