@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 import './main.css'
 import App from './App.vue'
 import router from './router'
-import { Button, Card, Drawer, Modal, Input, Segmented } from 'ant-design-vue'
+import { Button, Card, Drawer, Modal, Input, Segmented, Select } from 'ant-design-vue'
 
 // TODO: should I optimize use of antd?
 const app = createApp(App)
@@ -15,4 +15,5 @@ const app = createApp(App)
   .use(Drawer)
   .use(Input)
   .use(Segmented)
+  .use(Select)
   .mount('#app')

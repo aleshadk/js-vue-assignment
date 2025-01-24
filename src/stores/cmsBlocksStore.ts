@@ -16,8 +16,8 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
   {
     id: 'second',
     type: 'img',
-    src: 'this is src',
-    alt: 'alt',
+    src: '/couple.png',
+    alt: 'this is alt',
   }])
 
   function addNewBlock(type: BlockType, insertAfterBlockId?: string) {

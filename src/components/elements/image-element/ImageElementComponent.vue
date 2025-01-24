@@ -1,6 +1,5 @@
 <template>
-
-  <p>This is image element: {{ props.model.src }} with alt {{ props.model.alt }}</p>
+  <img :src="props.model.src" :alt="props.model.alt" />
 </template>
 
 <script setup lang="ts">
