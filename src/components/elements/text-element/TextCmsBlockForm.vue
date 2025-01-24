@@ -14,8 +14,8 @@ import type { TextBlockAligment, TextBlockItem } from '@/components/PagePreviewM
 import { ref } from 'vue';
 const props = defineProps<TextBlockItem>();
 const aligmentOptions: TextBlockAligment[] = ['left', 'center', 'right'];
-const textValue = ref<string>('');
-const textAligment = ref(aligmentOptions[0]);
+const textValue = ref<string>(props.value);
+const textAligment = ref(props.aligment);
 
 
 </script>

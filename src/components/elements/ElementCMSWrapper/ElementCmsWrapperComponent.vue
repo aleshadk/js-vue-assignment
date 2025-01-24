@@ -7,7 +7,7 @@
   >
     <!-- TODO: how can I avoid direct props drilling? May be I can use smth like v-bind here-->
     <!-- TODO: use kind of resolver here-->
-    <TextElementComponent v-if="props.type === 'text'" :value="(props as TextBlockItem).value" />
+    <TextElementComponent v-if="props.type === 'text'" :value="props.value" :aligment="props.aligment" />
     <ImageElementComponent
       v-if="props.type === 'img'"
       :src="(props as ImageBlockItem).src"

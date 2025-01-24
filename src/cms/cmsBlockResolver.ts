@@ -17,6 +17,7 @@ const mapping: BlockMapping = {
       return {
         type: 'text',
         value: 'This is a text',
+        aligment: 'center',
         id: generateId()
       }
     },

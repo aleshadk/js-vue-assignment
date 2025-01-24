@@ -2,7 +2,6 @@ import { createCmsBlockModel } from '@/cms/cmsBlockResolver'
 import type { BlockItem, BlockType } from '@/components/PagePreviewModel'
 import { arrayInsertAfter } from '@/utils/arrayInsertAfter'
 import { defineStore } from 'pinia'
-import type { Block } from 'typescript'
 import { ref } from 'vue'
 
 
@@ -12,6 +11,7 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
     id: 'first',
     type: 'text',
     value: 'Hello world',
+    aligment: 'center'
   },
   {
     id: 'second',
