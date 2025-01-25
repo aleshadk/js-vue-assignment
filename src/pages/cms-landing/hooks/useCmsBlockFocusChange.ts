@@ -12,11 +12,11 @@ export function useCmsBlockFocusChange(isDragging: Ref<boolean>) {
       focusedBlockId.value = id
       return
     }
-  
+
     if (focusedBlockId.value === id) {
       focusedBlockId.value = null
     }
   }
 
-  return {focusedBlockId, handleBlockFocusChanged};
+  return { focusedBlockId, handleBlockFocusChanged, clearFocusedBlockId: () => focusedBlockId.value = null };
 }

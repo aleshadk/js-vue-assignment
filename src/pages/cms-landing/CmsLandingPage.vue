@@ -71,7 +71,7 @@
 import { useCmsBlocksStore } from '@/cms/cmsStore'
 import AddNewBlockModalComponent from '../../cms/AddNewBlockModalComponent.vue'
 import ElementCMSWrapperComponent from '../../cms/LandingBlockCmsWrapper.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useCmsBlockFocusChange } from './hooks/useCmsBlockFocusChange'
 import draggable from 'vuedraggable'
 import { useCmsLandingForm } from './hooks/useCmsLandingForm'
@@ -80,7 +80,13 @@ import { useCmsLandingNewBlockModal } from './hooks/useCmsLandingNewBlockModal'
 const isBlockDragingInProgress = ref(false)
 const cmsBlocksStore = useCmsBlocksStore()
 
+watch(isBlockDragingInProgress, (value) => {
+  if (!value) {
+    clearFocusedBlockId();
+  }
+})
+
 const { form, editBlock, cancelEditBlock, submitEditBlockForm } = useCmsLandingForm()
 const { opened, showNewBlockModal, hideNewBlockModal, addNewBlock } = useCmsLandingNewBlockModal()
-const { focusedBlockId, handleBlockFocusChanged } = useCmsBlockFocusChange(isBlockDragingInProgress)
+const { focusedBlockId, handleBlockFocusChanged, clearFocusedBlockId } = useCmsBlockFocusChange(isBlockDragingInProgress)
 </script>

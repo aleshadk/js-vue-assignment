@@ -47,7 +47,7 @@ export function createCmsBlockModel(type: BlockType): LandingBlockModel {
 export function resolveFormComponent(data: LandingBlockModel): VNode {
   switch (data.type) {
     case 'text':
-      return ;
+      return mapping.text.resolveFormComponent(data);
     case 'img':
       return mapping.img.resolveFormComponent(data);
   }
