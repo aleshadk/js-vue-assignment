@@ -59,10 +59,7 @@ watch(
   },
 )
 
-watch(isActive, (value) => {
-  console.log(props.blockModel.id, 'focus changed', value)
-  emit('focusChanged', value)
-})
+watch(isActive, (value) => emit('focusChanged', value))
 </script>
 <style scoped>
 .wrapper {
