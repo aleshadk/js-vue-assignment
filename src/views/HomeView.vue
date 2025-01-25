@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import PagePreviewComponent from '@/components/PagePreviewComponent.vue';
-
+import CmsLandingPage from '@/pages/cms-landing/CmsLandingPage.vue'
 </script>
 
 <template>
   <main>
-    <PagePreviewComponent />
+    <CmsLandingPage />
   </main>
 </template>

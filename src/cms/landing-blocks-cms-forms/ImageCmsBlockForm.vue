@@ -16,12 +16,12 @@
   </div>
 </template>
 <script lang="ts" setup>
-import FormControlWrapper from '@/components/cms/cms-forms/FormControlWrapper.vue'
-import type { ImageBlockItem } from '@/components/PagePreviewModel'
-import { useCmsFormStore } from '@/stores/cmsBlocksStore'
+import FormControlWrapper from '@/cms/landing-blocks-cms-forms/FormControlWrapper.vue'
+import type { ImageBlockModel } from '@/landing/landingBlock.model'
+import { useCmsFormStore } from '@/cms/cmsStore'
 import { ref } from 'vue'
 
-const props = defineProps<ImageBlockItem>()
+const props = defineProps<ImageBlockModel>()
 const srcValue = ref<string>(props.src)
 const altValue = ref(props.alt)
 
@@ -33,6 +33,6 @@ cmsFormStore.updateSubmitActiveForm(() => {
     type: 'img',
     src: srcValue.value,
     alt: altValue.value,
-  } as ImageBlockItem
+  } as ImageBlockModel
 })
 </script>

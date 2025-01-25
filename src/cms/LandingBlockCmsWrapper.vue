@@ -6,8 +6,8 @@
     @mouseout="handleElementMouseOut"
   >
     <!-- TODO: use kind of resolver here-->
-    <TextElementComponent v-if="props.blockModel.type === 'text'" :model="props.blockModel" />
-    <ImageElementComponent v-if="props.blockModel.type === 'img'" :model="props.blockModel" />
+    <TextBlock v-if="props.blockModel.type === 'text'" :model="props.blockModel" />
+    <ImageBlock v-if="props.blockModel.type === 'img'" :model="props.blockModel" />
 
     <div
       class="control-panel"
@@ -15,22 +15,27 @@
       @mouseover="handleControlPanelMouseOver"
       @mouseout="handleControlPanelMouseOut"
     >
-      <CmsNewItemControl @add="() => emit('add')" @edit="() => emit('edit')" @dublicate="() => emit('dublicate')" @delete="() => emit('delete')" />
+      <LandingBlockCmsControlsPanel
+        @add="() => emit('add')"
+        @edit="() => emit('edit')"
+        @dublicate="() => emit('dublicate')"
+        @delete="() => emit('delete')"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import TextElementComponent from './../text-element/TextElementComponent.vue'
-import ImageElementComponent from './../image-element/ImageElementComponent.vue'
-import type { BlockItem } from '@/components/PagePreviewModel'
-import CmsNewItemControl from '../../cms-controls/CmsControlPanel.vue'
-import { useControlPanelHoverLogic } from './hooks/useControlPanelHoverLogic'
+import type { LandingBlockModel } from '@/landing/landingBlock.model'
+import { useLandingBLockHover } from './useLandingBlockHover'
 import { watch } from 'vue'
-const props = defineProps<{ blockModel: BlockItem; showControlPanel: boolean }>()
+import TextBlock from '@/landing/blocks/TextBlock.vue'
+import ImageBlock from '@/landing/blocks/ImageBlock.vue'
+import LandingBlockCmsControlsPanel from './LandingBlockCmsControlsPanel.vue'
+const props = defineProps<{ blockModel: LandingBlockModel; showControlPanel: boolean }>()
 
 const emit = defineEmits<{
-  (e: 'focusChanged', id: string, isFocused: boolean): void // TODO: renove id?
+  (e: 'focusChanged', isFocused: boolean): void // TODO: renove id?
   (e: 'add'): void
   (e: 'edit'): void
   (e: 'dublicate'): void
@@ -44,9 +49,7 @@ const {
   handleControlPanelMouseOver,
   handleControlPanelMouseOut,
   reset,
-} = useControlPanelHoverLogic(props.blockModel.id)
-
-// TODO: I don't like it, but I don't know how to fix it in a better way
+} = useLandingBLockHover()
 
 watch(
   () => props.showControlPanel,
@@ -57,8 +60,7 @@ watch(
   },
 )
 
-watch(isActive, (value) => emit('focusChanged', props.blockModel.id, value))
-
+watch(isActive, (value) => emit('focusChanged', value))
 </script>
 <style scoped>
 .wrapper {

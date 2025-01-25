@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TextBlockAligment, TextBlockItem } from '@/components/PagePreviewModel'
+import type { TextBlockAligment, TextBlockModel } from '@/landing/landingBlock.model'
 import { ref, watch } from 'vue'
 const alligmentToCssClassMapping: Record<TextBlockAligment, string> = {
   center: 'text-center',
@@ -11,7 +11,7 @@ const alligmentToCssClassMapping: Record<TextBlockAligment, string> = {
   right: 'text-right',
 }
 
-const props = defineProps<{model: TextBlockItem}>()
+const props = defineProps<{model: TextBlockModel}>()
 const aligmentCssClass = ref('')
 
 watch(

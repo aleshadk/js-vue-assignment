@@ -1,5 +1,5 @@
 import { createCmsBlockModel } from '@/cms/cmsBlockResolver'
-import type { BlockItem, BlockType } from '@/components/PagePreviewModel'
+import type { LandingBlockModel, BlockType } from '@/landing/landingBlock.model'
 import { dublicateArrayElement } from '@/utils/arrayDublicate'
 import { arrayInsertAfter } from '@/utils/arrayInsertAfter'
 import { generateId } from '@/utils/generateRandomId'
@@ -9,7 +9,7 @@ import { ref } from 'vue'
 
 // TODO: CMS always small or big
 export const useCmsBlocksStore = defineStore('cms-blocks', () => {
-  const blocks = ref<BlockItem[]>([]);
+  const blocks = ref<LandingBlockModel[]>([]);
 
   function addNewBlock(type: BlockType, insertAfterBlockId?: string) {
     const result = arrayInsertAfter(blocks.value, createCmsBlockModel(type), insertAfterBlockId ? item => item.id === insertAfterBlockId : undefined)
@@ -17,7 +17,7 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
   }
 
   // TODO: write tests for cases when there is no block with relevant id
-  function updateBlock(data: BlockItem) {
+  function updateBlock(data: LandingBlockModel) {
     blocks.value = blocks.value.map(item => item.id === data.id ? data : item);
   }
 
@@ -34,11 +34,11 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
 
 // TODO: I don't like "active" in var names
 export const useCmsFormStore = defineStore('cms-form', () => {
-  const submitActiveForm = ref<(() => BlockItem) | null>();
+  const getActiveFormValue = ref<(() => LandingBlockModel) | null>();
 
-  function updateSubmitActiveForm(fn: (() => BlockItem) | null) {
-    submitActiveForm.value = fn;
+  function updateActiveFormGetter(fn: (() => LandingBlockModel) | null) {
+    getActiveFormValue.value = fn;
   }
 
-  return { submitActiveForm, updateSubmitActiveForm }
+  return { getActiveFormValue, updateSubmitActiveForm: updateActiveFormGetter }
 })

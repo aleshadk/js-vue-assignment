@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-  import type { ImageBlockItem } from '@/components/PagePreviewModel';
-  const props = defineProps<{model: ImageBlockItem}>()
+  import type { ImageBlockModel } from '@/landing/landingBlock.model';
+  const props = defineProps<{model: ImageBlockModel}>()
 </script>
 
 <style scoped></style>

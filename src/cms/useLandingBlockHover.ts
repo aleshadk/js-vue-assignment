@@ -1,12 +1,12 @@
 import { ref, computed } from 'vue'
 
-export function useControlPanelHoverLogic(id: string) {
+export function useLandingBLockHover() {
   const elHovered = ref(false);
   const controlPanelHovered = ref(false);
 
   const isActive = computed(() => elHovered.value || controlPanelHovered.value)
 
-  function handleElementMouseOver(event: MouseEvent) {
+  function handleElementMouseOver() {
     elHovered.value = true;
   }
 

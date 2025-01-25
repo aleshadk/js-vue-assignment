@@ -1,19 +1,19 @@
 import { generateId } from '@/utils/generateRandomId';
-import { type BlockType, type TextBlockItem, type ImageBlockItem, type BlockItem } from './../components/PagePreviewModel';
+import { type BlockType, type TextBlockModel, type ImageBlockModel, type LandingBlockModel } from '../landing/landingBlock.model';
 import { h, type VNode } from 'vue';
-import TextCmsBlockForm from '@/components/elements/text-element/TextCmsBlockForm.vue';
-import ImageCmsBlockForm from '@/components/elements/image-element/ImageCmsBlockForm.vue';
+import TextCmsBlockForm from '@/cms/landing-blocks-cms-forms/TextCmsBlockForm.vue';
+import ImageCmsBlockForm from '@/cms/landing-blocks-cms-forms/ImageCmsBlockForm.vue';
 
 type BlockMapping = {
   [K in BlockType]: {
-    createEmptyModel(): Extract<BlockItem, { type: K }>;
-    resolveFormComponent(data: Extract<BlockItem, { type: K }>): VNode;
+    createEmptyModel(): Extract<LandingBlockModel, { type: K }>;
+    resolveFormComponent(data: Extract<LandingBlockModel, { type: K }>): VNode;
   }
 }
 
 const mapping: BlockMapping = {
   ['text']: {
-    createEmptyModel(): TextBlockItem {
+    createEmptyModel(): TextBlockModel {
       return {
         type: 'text',
         value: 'This is a text',
@@ -21,12 +21,12 @@ const mapping: BlockMapping = {
         id: generateId()
       }
     },
-    resolveFormComponent(data: TextBlockItem): VNode {
+    resolveFormComponent(data: TextBlockModel): VNode {
       return h(TextCmsBlockForm, data);
     }
   },
   ['img']: {
-    createEmptyModel(): ImageBlockItem {
+    createEmptyModel(): ImageBlockModel {
       return {
         type: 'img',
         src: '/ny.png',
@@ -34,17 +34,17 @@ const mapping: BlockMapping = {
         id: generateId()
       }
     },
-    resolveFormComponent(data: ImageBlockItem): VNode {
+    resolveFormComponent(data: ImageBlockModel): VNode {
       return h(ImageCmsBlockForm, data);
     }
   }
 }
 
-export function createCmsBlockModel(type: BlockType): BlockItem {
+export function createCmsBlockModel(type: BlockType): LandingBlockModel {
   return mapping[type].createEmptyModel();
 }
 
-export function resolveFormComponent(data: BlockItem): VNode {
+export function resolveFormComponent(data: LandingBlockModel): VNode {
   // TODO: can I do it without switch case? 
   switch (data.type) {
     case 'text':
