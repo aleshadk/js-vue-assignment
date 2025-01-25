@@ -62,25 +62,25 @@ I primarily used ChatGPT in the past, but I’ve always wanted to explore these 
 
 I used AI to create a clickable prototype before development. This helped me ensure the interface felt intuitive and pleasant to use.
 
-![v0 example](/js-vue-assignment/docs/v0.png)
+![v0 example](docs/v0.png)
 
 ### Stable Diffusion
 
 I tried generating assets for the app using AI but couldn’t get the desired results.
 
-![Stable Diffusion example](/js-vue-assignment/docs/stable-diffusion.png)
+![Stable Diffusion example](docs/stable-diffusion.png)
 
 ### Cline + Claude 3.5
 
 This incredible tool helped me generate code, debug issues, and handle routine tasks.
 
-![Cline + Claude example](/js-vue-assignment/docs/cline_claude.png)
+![Cline + Claude example](docs/cline_claude.png)
 
 ### Codium
 
 An excellent tool that refreshed my memory on basic Vue concepts.
 
-![Codium example](/js-vue-assignment/docs/codium.png)
+![Codium example](docs/codium.png)
 
 # Known Issues
 
