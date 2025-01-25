@@ -49,6 +49,8 @@
       <a-button type="primary" @click="submitForm">Save</a-button>
     </template>
   </a-drawer>
+
+  <a-button @click="() => console.log([...cmsBlocksStore.blocks.map(x => ({ ...x }))])" type="primary" class="fixed bottom-16 right-16" style="position: fixed">Show data in console</a-button>
 </template>
 
 <script setup lang="ts">
