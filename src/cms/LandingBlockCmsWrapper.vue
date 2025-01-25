@@ -2,8 +2,8 @@
   <div
     class="wrapper"
     :class="{ shadowed: props.showControlPanel }"
-    @mouseover="handleElementMouseOver"
-    @mouseout="handleElementMouseOut"
+    @mouseenter="handleElementMouseEnter"
+    @mouseleave="handleElementMouseLeave"
   >
     <TextBlock v-if="props.blockModel.type === 'text'" :model="props.blockModel" />
     <ImageBlock v-if="props.blockModel.type === 'img'" :model="props.blockModel" />
@@ -11,8 +11,8 @@
     <div
       class="control-panel"
       v-if="props.showControlPanel"
-      @mouseover="handleControlPanelMouseOver"
-      @mouseout="handleControlPanelMouseOut"
+      @mouseenter="handleControlPanelMouseEnter"
+      @mouseleave="handleControlPanelMouseLeave"
     >
       <LandingBlockCmsControlsPanel
         @add="() => emit('add')"
@@ -43,10 +43,10 @@ const emit = defineEmits<{
 
 const {
   isActive,
-  handleElementMouseOver,
-  handleElementMouseOut,
-  handleControlPanelMouseOver,
-  handleControlPanelMouseOut,
+  handleElementMouseEnter,
+  handleElementMouseLeave,
+  handleControlPanelMouseEnter,
+  handleControlPanelMouseLeave,
   reset,
 } = useLandingBLockHover()
 
@@ -59,7 +59,10 @@ watch(
   },
 )
 
-watch(isActive, (value) => emit('focusChanged', value))
+watch(isActive, (value) => {
+  console.log(props.blockModel.id, 'focus changed', value)
+  emit('focusChanged', value)
+})
 </script>
 <style scoped>
 .wrapper {

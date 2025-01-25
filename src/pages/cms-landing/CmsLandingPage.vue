@@ -27,19 +27,7 @@
         </template>
       </draggable>
       <div v-if="cmsBlocksStore.blocks.length === 0">
-        <a-empty
-          image="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original"
-          :image-style="{
-            height: '60px',
-            display: 'flex',
-            justifyContent: 'center',
-          }"
-        >
-          <template #description>
-            <span> This page is empty </span>
-          </template>
-          <a-button @click="showNewBlockModal" type="primary">Add your first block here</a-button>
-        </a-empty>
+        <NoDataComponent @addNewBlock="showNewBlockModal" />
       </div>
     </div>
   </div>
@@ -76,6 +64,7 @@ import { useCmsBlockFocusChange } from './hooks/useCmsBlockFocusChange'
 import draggable from 'vuedraggable'
 import { useCmsLandingForm } from './hooks/useCmsLandingForm'
 import { useCmsLandingNewBlockModal } from './hooks/useCmsLandingNewBlockModal'
+import NoDataComponent from './components/NoDataComponent.vue'
 
 const isBlockDragingInProgress = ref(false)
 const cmsBlocksStore = useCmsBlocksStore()
