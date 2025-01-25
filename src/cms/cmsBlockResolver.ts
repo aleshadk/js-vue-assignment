@@ -29,7 +29,7 @@ const mapping: BlockMapping = {
     createEmptyModel(): ImageBlockItem {
       return {
         type: 'img',
-        src: 'this is src',
+        src: '/ny.png',
         alt: 'this is alt',
         id: generateId()
       }

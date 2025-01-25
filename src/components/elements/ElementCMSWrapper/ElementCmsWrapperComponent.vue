@@ -15,7 +15,7 @@
       @mouseover="handleControlPanelMouseOver"
       @mouseout="handleControlPanelMouseOut"
     >
-      <CmsNewItemControl @add="() => emit('add')" @edit="() => emit('edit')" @delete="() => emit('delete')" />
+      <CmsNewItemControl @add="() => emit('add')" @edit="() => emit('edit')" @dublicate="() => emit('dublicate')" @delete="() => emit('delete')" />
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@ const emit = defineEmits<{
   (e: 'focusChanged', id: string, isFocused: boolean): void // TODO: renove id?
   (e: 'add'): void
   (e: 'edit'): void
+  (e: 'dublicate'): void
   (e: 'delete'): void
 }>()
 

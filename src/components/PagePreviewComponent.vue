@@ -3,6 +3,7 @@
   <div class="flex justify-center">
     <div class="w-2xl box-border bg-white border border-gray-200 rounded-lg shadow-lg p-8 mb-16">
       <draggable
+        v-if="cmsBlocksStore.blocks.length"
         :list="cmsBlocksStore.blocks"
         item-key="id"
         ghost-class="bg-green-500"
@@ -20,15 +21,35 @@
             @focusChanged="handleBlockFocusChanged"
             @add="() => (addNewBlockModalOpened = { insertAfterBlockId: element.id })"
             @edit="() => editCmsBlock(element.id)"
+            @dublicate="() => cmsBlocksStore.dublicateBlock(element.id)"
             @delete="() => cmsBlocksStore.deleteBlock(element.id)"
           />
         </template>
       </draggable>
+      <div v-if="cmsBlocksStore.blocks.length === 0">
+        <a-empty
+          image="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original"
+          :image-style="{
+            height: '60px',
+            display: 'flex',
+            justifyContent: 'center',
+          }"
+        >
+          <template #description>
+            <span> This page is empty </span>
+          </template>
+          <a-button
+            @click="addNewBlockModalOpened = { insertAfterBlockId: undefined }"
+            type="primary"
+            >Add your first block here</a-button
+          >
+        </a-empty>
+      </div>
     </div>
   </div>
 
   <a-modal
-    :open="addNewBlockModalOpened"
+    :open="addNewBlockModalOpened !== null"
     title="Basic Modal"
     @cancel="addNewBlockModalOpened = null"
   >
@@ -50,7 +71,13 @@
     </template>
   </a-drawer>
 
-  <a-button @click="() => console.log([...cmsBlocksStore.blocks.map(x => ({ ...x }))])" type="primary" class="fixed bottom-16 right-16" style="position: fixed">Show data in console</a-button>
+  <a-button
+    @click="() => console.log([...cmsBlocksStore.blocks.map((x) => ({ ...x }))])"
+    type="primary"
+    class="fixed bottom-16 right-16"
+    style="position: fixed"
+    >Show data in console</a-button
+  >
 </template>
 
 <script setup lang="ts">
@@ -63,9 +90,7 @@ import { useCmsBlockFocusChange } from './useCmsBlockFocusChange'
 import { resolveFormComponent } from '@/cms/cmsBlockResolver'
 import draggable from 'vuedraggable'
 
-// Определяем реактивное состояние
 const drag = ref(false)
-
 const cmsBlocksStore = useCmsBlocksStore()
 
 // TODO: rename
@@ -101,7 +126,7 @@ const editCmsBlock = (id: string) => {
 
 const { focusedBlockId, handleBlockFocusChanged } = useCmsBlockFocusChange(drag)
 
-const addNewBlockModalOpened = ref<{ insertAfterBlockId: string } | null>(null)
+const addNewBlockModalOpened = ref<{ insertAfterBlockId: string | undefined } | null>(null)
 
 function handleAddNewBlock(type: BlockType) {
   cmsBlocksStore.addNewBlock(type, addNewBlockModalOpened.value?.insertAfterBlockId)

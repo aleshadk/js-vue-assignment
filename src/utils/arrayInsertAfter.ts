@@ -4,9 +4,9 @@ export function arrayInsertAfter<TData>(data: TData[], newItem: TData, afterPred
     return [...data, newItem];
   }
 
-  const result = data.reduce((res, block) => {
-    res.push(block);
-    if (afterPredicate(block)) {
+  const result = data.reduce((res, element) => {
+    res.push(element);
+    if (afterPredicate(element)) {
       res.push(newItem);
     }
     return res
