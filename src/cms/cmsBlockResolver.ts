@@ -3,6 +3,7 @@ import { type BlockType, type TextBlockModel, type ImageBlockModel, type Landing
 import { h, type VNode } from 'vue';
 import TextCmsBlockForm from '@/cms/landing-blocks-cms-forms/TextCmsBlockForm.vue';
 import ImageCmsBlockForm from '@/cms/landing-blocks-cms-forms/ImageCmsBlockForm.vue';
+import { getAssetUrl } from '@/utils/getAssetUrl';
 
 type BlockMapping = {
   [K in BlockType]: {
@@ -29,7 +30,7 @@ const mapping: BlockMapping = {
     createEmptyModel(): ImageBlockModel {
       return {
         type: 'img',
-        src: '/ny.png',
+        src: getAssetUrl('/ny.png'),
         alt: 'this is alt',
         id: generateId()
       }

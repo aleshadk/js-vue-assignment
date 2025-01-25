@@ -16,10 +16,11 @@
 </template>
 <script lang="ts" setup>
 import type { BlockType } from '../landing/landingBlock.model'
+import { getAssetUrl } from '../utils/getAssetUrl'
 
 const items: { img: string; text: string; type: BlockType }[] = [
-  { img: '/text.png', text: 'Text', type: 'text' },
-  { img: '/image.png', text: 'Image', type: 'img' },
+  { img: getAssetUrl('/text.png'), text: 'Text', type: 'text' },
+  { img: getAssetUrl('/image.png'), text: 'Image', type: 'img' },
 ]
 
 const emit = defineEmits<{
