@@ -3,7 +3,7 @@
 
 # Demo
 
-[Check out the live solution here](https://aleshadk.github.io/js-vue-assignment/)
+[Check out the live solution here](https://aleshadk.github.io/js-vue-assignment/){:target="_blank"}
 
 # Solution Description
 
