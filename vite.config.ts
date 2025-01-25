@@ -9,6 +9,7 @@ import eslintPlugin from "@nabla/vite-plugin-eslint";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/js-vue-assignment/',
   plugins: [
     vue(),
     vueJsx(),
