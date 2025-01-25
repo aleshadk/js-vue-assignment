@@ -5,7 +5,6 @@
     @mouseover="handleElementMouseOver"
     @mouseout="handleElementMouseOut"
   >
-    <!-- TODO: use kind of resolver here-->
     <TextBlock v-if="props.blockModel.type === 'text'" :model="props.blockModel" />
     <ImageBlock v-if="props.blockModel.type === 'img'" :model="props.blockModel" />
 
@@ -35,7 +34,7 @@ import LandingBlockCmsControlsPanel from './LandingBlockCmsControlsPanel.vue'
 const props = defineProps<{ blockModel: LandingBlockModel; showControlPanel: boolean }>()
 
 const emit = defineEmits<{
-  (e: 'focusChanged', isFocused: boolean): void // TODO: renove id?
+  (e: 'focusChanged', isFocused: boolean): void
   (e: 'add'): void
   (e: 'edit'): void
   (e: 'dublicate'): void

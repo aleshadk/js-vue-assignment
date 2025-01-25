@@ -7,7 +7,6 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 
-// TODO: CMS always small or big
 export const useCmsBlocksStore = defineStore('cms-blocks', () => {
   const blocks = ref<LandingBlockModel[]>([]);
 
@@ -32,7 +31,6 @@ export const useCmsBlocksStore = defineStore('cms-blocks', () => {
   return { blocks, addNewBlock, updateBlock, deleteBlock, dublicateBlock }
 })
 
-// TODO: I don't like "active" in var names
 export const useCmsFormStore = defineStore('cms-form', () => {
   const getActiveFormValue = ref<(() => LandingBlockModel) | null>();
 

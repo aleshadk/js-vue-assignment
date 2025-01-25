@@ -45,10 +45,9 @@ export function createCmsBlockModel(type: BlockType): LandingBlockModel {
 }
 
 export function resolveFormComponent(data: LandingBlockModel): VNode {
-  // TODO: can I do it without switch case? 
   switch (data.type) {
     case 'text':
-      return mapping.text.resolveFormComponent(data);
+      return ;
     case 'img':
       return mapping.img.resolveFormComponent(data);
   }
