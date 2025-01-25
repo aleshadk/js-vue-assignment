@@ -12,7 +12,7 @@
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "type-check:watch": "tsc --noEmit --watch",
+    "type-check:watch": "vue-tsc --build --watch",
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
@@ -54,7 +54,7 @@
     "start-server-and-test": "^2.0.10",
     "typescript": "~5.7.3",
     "vite": "^6.0.11",
-    "vite-plugin-eslint": "^1.8.1",
+    "@nabla/vite-plugin-eslint": "^2.0.2",
     "vite-plugin-vue-devtools": "^7.7.0",
     "vitest": "^3.0.2",
     "vue-tsc": "^2.2.0"

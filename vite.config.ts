@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
-import eslintPlugin from "vite-plugin-eslint";
+import eslintPlugin from "@nabla/vite-plugin-eslint";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,9 +14,7 @@ export default defineConfig({
     vueJsx(),
     vueDevTools(),
     tailwindcss(),
-    eslintPlugin({
-      cache: false, 
-    }),
+    eslintPlugin(),
   ],
   resolve: {
     alias: {
@@ -24,4 +22,3 @@ export default defineConfig({
     },
   },
 })
-
