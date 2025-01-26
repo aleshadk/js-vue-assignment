@@ -16,6 +16,14 @@ The task stated "Create 2 draggable blocks," but I opted for a different approac
 
 For editing elements, I implemented a side panel with a form. This approach allows endless possibilities for managing content. For example, even a simple "image" block could require multiple properties like `src`, `alt`, `object-fit`, and `margins`.
 
+# How to run locally
+
+- Install NodeJS (I use v18.12.1)
+- Run `git clone git@github.com:aleshadk/js-vue-assignment.git`
+- Run `npm i`
+- Run `npm run dev` to start the app
+- Run `npm run test:unit` to start unit tests
+
 # Test Scenarios
 
 - Open the app
@@ -50,37 +58,6 @@ I wrote several tests for areas where changes could lead to unexpected consequen
 **UI**: Antd, vuedraggable  
 **TOOLS**: Vite, vue-tsc, Prettier, ESLint  
 **CI/CD**: gh-pages  
-
-# AI Assistants
-
-> [!IMPORTANT]  
-> I don’t use AI with repositories for my employer without explicit approval from my manager and the security team.
-
-I primarily used ChatGPT in the past, but I’ve always wanted to explore these tools more deeply. Since Vue is a framework I’m less confident in, this felt like the perfect opportunity.
-
-### v0
-
-I used AI to create a clickable prototype before development. This helped me ensure the interface felt intuitive and pleasant to use.
-
-![v0 example](public/docs/v0.png)
-
-### Stable Diffusion
-
-I tried generating assets for the app using AI but couldn’t get the desired results.
-
-![Stable Diffusion example](public/docs/stable-diffusion.png)
-
-### Cline + Claude 3.5
-
-This incredible tool helped me generate code, debug issues, and handle routine tasks.
-
-![Cline + Claude example](public/docs/cline_claude.png)
-
-### Codium
-
-An excellent tool that refreshed my memory on basic Vue concepts.
-
-![Codium example](public/docs/codium.png)
 
 # Known Issues
 
