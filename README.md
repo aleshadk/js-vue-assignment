@@ -1,5 +1,5 @@
 > [!IMPORTANT]  
-> Please note that my primary stack is Angular, and I only have a basic understanding of Vue.
+> Please note that my primary stack is React and Angular, and I only have a basic understanding of Vue.
 
 # Demo
 
